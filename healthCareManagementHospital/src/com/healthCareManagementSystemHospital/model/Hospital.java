@@ -88,15 +88,23 @@ public class Hospital {
 	String timeTo = rs.getString("timeTo");
 	String date = rs.getString("date");
 	// Add into the html table
-	output += "<tr><td>" + hospitalCode + "</td>";
+	
+	output += "<tr><td><input id=\"hidItemIDUpdate\"name=\"hidItemIDUpdate\"type=\"hidden\" value=\"" + hospitalID + "\">"
+			    + hospitalCode + "</td>";
 	output += "<td>" + doctorName + "</td>";
 	output += "<td>" + roomNo + "</td>";
 	output += "<td>" + timeFrom + "</td>";
 	output += "<td>" + timeTo + "</td>";
 	output += "<td>" + date + "</td>";
 	// buttons
-	output += "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btn btn-secondary\"></td>"+ "<td><form method=\"post\" action=\"items.jsp\">"+ "<input name=\"btnRemove\" type=\"submit\" value=\"Cancel\"class=\"btn btn-danger\">"+ "<input name=\"hospitalID\" type=\"hidden\" value=\"" + hospitalID+ "\">" + "</form></td></tr>";
+	output += "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btnUpdate btn btn-secondary\"></td>"
+	+ "<td><form method=\"post\" action=\"Hospital.jsp\">"
+	+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
+	+ "<input name=\"hidItemIDDelete\" type=\"hidden\" value=\"" + hospitalID+ "\">" + "</form></td></tr>";
+			
+			 
 	}
+	
 	connection.close();
 	// Complete the html table
 	output += "</table>";
