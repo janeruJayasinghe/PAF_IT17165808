@@ -1,38 +1,9 @@
-
+<%@page import="com.healthCareManagementSystemHospital.model.Hospital"%>
+	
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	<%@page import="java.nio.channels.SeekableByteChannel"%>
-<%@page import="com.healthCareManagementSystemHospital.model.Hospital"%>
-	<%
-		session.setAttribute("statusMsg", "");
-		System.out.println("Tryinf to process....");
-		
-		if (request.getParameter("hospitalCode") != null)
-		{
-			Hospital itemObj = new Hospital();
-			String stsMsg = "";
-		
-		if  (request.getParameter("hidItemIDSave") == "")
-		{
-			stsMsg = itemObj.addSchedule(request.getParameter("hospitalCode"), request.getParameter("doctorName"), request.getParameter("roomNo"), request.getParameter("timeFrom"), request.getParameter("timeTo"), request.getParameter("date"));
-			
-		}
-		else 
-		{
-			stsMsg = itemObj.updateDoctorShedule(request.getParameter("hidItemIDSave"), request.getParameter("hospitalCode"), request.getParameter("doctorName"), request.getParameter("roomNo"), request.getParameter("timeFrom"), request.getParameter("timeTo"), request.getParameter("date"));
-			
-		}
-		session.setAttribute("statusMsg", stsMsg);
-		
-		}
-		if(request.getParameter("hidItemIDDelete") != null)
-		{
-			Hospital itemObj = new Hospital();
-			String stsMsg=itemObj.deleteShedule(request.getParameter("hidItemIDDelete"));
-			session.setAttribute("statusMsg", stsMsg);		
-			
-		}
-	%>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -46,9 +17,9 @@
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-8">
-				<h1 class="m-3">Student details</h1>
-				<form id="formItem" name="formItem" method="post" action="Hospital.jsp">
+			<div class="col-6">
+				<h1 >Student details</h1>
+				<form id="formShedule" name="formShedule" >
 					Hospital code:
 					 <input id="hospitalCode" name="hospitalCode" type="text"class="form-control form-control-sm"> 
 					<br>Doctor name:
@@ -65,25 +36,20 @@
 					  <input id="date" name="date" type="text"class="form-control form-control-sm">
 					  <br>
 					   <input id="btnSave" name="btnSave" type="button" value="Save"class="btn btn-primary">
-					   <input type="hidden"id="hidItemIDSave" name="hidItemIDSave" value="">
+					   <input type="hidden"id="hidSheduleIDSave" name="hidSheduleIDSave" value="">
 				</form>
-				<div id="alertSuccess" class="alert alert-success">
-				<%
-				out.print(session.getAttribute("statusMsg"));
-				%>
-				</div>
+				<div id="alertSuccess" class="alert alert-success"></div>
 				<div id="alertError" class="alert alert-danger"></div>
 				<br>
+				<div id="divShedulesGrid">
 				<%
 					Hospital itemObj = new Hospital();
 					out.print(itemObj.viewAllShedules());
 				%>
+				</div>
 			</div>
 		</div>
-		<br>
-		<div class="row">
-			<div class="col-12" id="colStudents"></div>
-		</div>
+		
 	</div>
 </body>
 

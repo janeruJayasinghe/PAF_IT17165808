@@ -50,11 +50,14 @@ public class Hospital {
 	// execute the statement
 	preparedStmt.execute();
 	connection.close();
-	output = "Inserted doctor shedule successfully";
+	String newSchedules = viewAllShedules();
+	output = "{\"status\":\"success\", \"data\": \"" + newSchedules + "\"}";
 	}
 	catch (Exception e)
 	{
-	output = "Error while inserting the doctor shedule.";
+	output = "{\"status\":\"error\", \"data\":"
+	 		+ "\"Error while inserting the item.\"}";
+	
 	System.err.println(e.getMessage());
 	}
 	return output;
@@ -73,7 +76,8 @@ public class Hospital {
 	if (connection == null)
 	{return "Error while connecting to the database for reading."; }
 	// Prepare the html table to be displayed
-	output = "<table border=\"1\"><tr><th>Hospital code</th><th>Doctor Name</th><th>Room NO</th><th>Time From</th><th>Time To</th><th>DATE</th><th>Update</th><th>Remove</th></tr>";
+	output = "<table border='1'><tr><th>Hospital code</th><th>Doctor Name</th><th>Room NO</th><th>Time From</th><th>Time To</th><th>DATE</th>"
+			 + "<th>Update</th><th>Remove</th></tr>";
 	String query = "select * from hospital";
 				Statement stmt = connection.createStatement();
 	ResultSet rs = stmt.executeQuery(query);
@@ -89,7 +93,7 @@ public class Hospital {
 	String date = rs.getString("date");
 	// Add into the html table
 	
-	output += "<tr><td><input id=\"hidItemIDUpdate\"name=\"hidItemIDUpdate\"type=\"hidden\" value=\"" + hospitalID + "\">"
+	output += "<tr><td><input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + hospitalID + "'>"
 			    + hospitalCode + "</td>";
 	output += "<td>" + doctorName + "</td>";
 	output += "<td>" + roomNo + "</td>";
@@ -97,11 +101,9 @@ public class Hospital {
 	output += "<td>" + timeTo + "</td>";
 	output += "<td>" + date + "</td>";
 	// buttons
-	output += "<td><input name=\"btnUpdate\" type=\"button\"value=\"Update\" class=\"btnUpdate btn btn-secondary\"></td>"
-	+ "<td><form method=\"post\" action=\"Hospital.jsp\">"
-	+ "<input name=\"btnRemove\" type=\"submit\" value=\"Remove\"class=\"btn btn-danger\">"
-	+ "<input name=\"hidItemIDDelete\" type=\"hidden\" value=\"" + hospitalID+ "\">" + "</form></td></tr>";
-			
+	output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
+			+ "<td><input name='btnRemove' type='button' value='Remove' class='btnRemove btn btn-danger' data-itemid='"
+			+ hospitalID + "'>" + "</td></tr>";
 			 
 	}
 	
@@ -141,11 +143,12 @@ public class Hospital {
 	// execute the statement
 	preparedStmt.execute();
 	con.close();
-	output = "Updated successfully";
+	String newSchedules = viewAllShedules();
+	output = "{\"status\":\"success\", \"data\": \"" + newSchedules + "\"}";
 	}
 	catch (Exception e)
 	{
-	output = "Error while updating the item.";
+		output = "{\"status\":\"error\", \"data\": \" oopps...Somthing went wrong. Cannot update the schedule.\"}"; 
 	System.err.println(e.getMessage());
 	}
 	return output;
@@ -166,11 +169,12 @@ public class Hospital {
 	// execute the statement
 	preparedStmt.execute();
 	con.close();
-	output = "Deleted successfully";
+	String newSchedules = viewAllShedules();
+	output = "{\"status\":\"success\", \"data\": \"" + newSchedules + "\"}";
 	}
 	catch (Exception e)
 	{
-	output = "Error while deleting the item.";
+		output = "{\"status\":\"error\", \"data\": \" oopps...Somthing went wrong. Cannot delete the schedule.\"}"; 
 	System.err.println(e.getMessage());
 	}
 	return output;
@@ -225,7 +229,7 @@ public class Hospital {
 	if (connection == null)
 	{return "Error while connecting to the database for reading."; }
 	// Prepare the html table to be displayed
-	output = "<table border=\"1\"><tr><th>Hospital code</th><th>Hospital Name</th><th>address</th><th>Phone NO</th><th>Email</th><th>Update</th><th>Remove</th></tr>";
+	output = "<table border='1'><tr><th>Hospital code</th><th>Hospital Name</th><th>address</th><th>Phone NO</th><th>Email</th><th>Update</th><th>Remove</th></tr>";
 	String query = "select * from hospitalreg";
 				Statement stmt = connection.createStatement();
 	ResultSet rs = stmt.executeQuery(query);
