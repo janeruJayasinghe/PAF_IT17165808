@@ -22,7 +22,7 @@
 </head>
 <body>
 <div style=text-align:center>
-	<div class="container" style="width:1500px; margin:0 auto;text-align:center;">
+	<div class="container" style="width:1600px; margin:0 auto;text-align:center;">
 		<div class="row">
 			<div class="col-6">
 				<h1>LCUD Medical Center Schedule Management </h1><br>
