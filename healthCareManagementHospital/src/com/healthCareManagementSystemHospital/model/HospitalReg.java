@@ -11,7 +11,7 @@ public class HospitalReg {
 		Connection connection = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/healthcaremanagment", "root", "");
+			connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/hospitalservice", "root", "");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

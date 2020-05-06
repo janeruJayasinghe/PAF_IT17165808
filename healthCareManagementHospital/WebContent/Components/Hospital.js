@@ -1,30 +1,47 @@
-function onSheduleSaveComplete(response, status) {
-	if (status == "success") {
-		var resultSet = JSON.parse(response);
-		if (resultSet.status.trim() == "success") {
-			$("#alertSuccess").text("Successfully saved.");
-			$("#alertSuccess").show();
-			$("#divShedulesGrid").html(resultSet.data);
-		} else if (resultSet.status.trim() == "error") {
-			$("#alertError").text(resultSet.data);
-			$("#alertError").show();
-		}
-	} else if (status == "error") {
-		$("#alertError").text("Error while saving.");
-		$("#alertError").show();
-	} else {
-		$("#alertError").text("Unknown error while saving..");
-		$("#alertError").show();
-	}
-	$("#hidSheduleIDSave").val("");
-	$("#formShedule")[0].reset();
-}
+
 $(document).ready(function() {
 	if ($("#alertSuccess").text().trim() == "") {
 		$("#alertSuccess").hide();
 	}
 	$("#alertError").hide();
 });
+//jquery for run time picker
+$(document).ready(function(){
+    $("#timeFrom").mdtimepicker();
+  });
+////jquery for run time picker
+$(document).ready(function(){
+    $("#timeTo").mdtimepicker();
+  });
+//validation for text field
+$(document).ready(function () {
+	  //called when key is pressed in textbox
+	  $("#roomNo").keypress(function (e) {
+	     //if the letter is not digit then display error and don't type anything
+	     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+	        //display error message
+	        $("#alertError").html("Digits Only").show().fadeOut("slow");
+	               return false;
+	    }
+	   });
+	});
+
+//validation for text field
+var maxLength = 2;
+$(document).ready(function(){
+    $('#roomNo').on('keydown keyup change', function(){
+        var char = $(this).val();
+        var charLength = $(this).val().length;
+        if(charLength > maxLength  ){
+        	 $("#alertError").html("invalid room no").show().fadeOut("slow");
+        	  $(this).val(char.substring(0, maxLength));
+        
+        }
+    });
+});
+
+
+
 
 // SAVE ============================================
 $(document).on("click", "#btnSave", function(event) {
@@ -120,7 +137,7 @@ function onSheduleDeleteComplete(response, status) {
 	}
 }
 
-//CLIENT-MODEL=================================================================
+//CLIENT-MODEL form validation
 
 function validateItemForm() {
 
@@ -143,5 +160,32 @@ function validateItemForm() {
 		return "Insert Date.";
 
 	}
+	
 	return true;
+}
+function onSheduleSaveComplete(response, status) {
+	if (status == "success") {
+		var resultSet = JSON.parse(response);
+		if (resultSet.status.trim() == "success") {
+			$("#alertSuccess").text("Successfully saved.");
+			$("#alertSuccess").show();
+			$("#divShedulesGrid").html(resultSet.data);
+		} else if (resultSet.status.trim() == "error") {
+			$("#alertError").text(resultSet.data);
+			$("#alertError").show();
+		}
+	} else if (status == "error") {
+		$("#alertError").text("Error while saving.");
+		$("#alertError").show();
+	} else {
+		$("#alertError").text("Unknown error while saving..");
+		$("#alertError").show();
+	}
+	$("#hidSheduleIDSave").val("");
+	$("#formShedule")[0].reset();
+	$("#timeTo,#timeFrom").val("").set();
+	
+	
+
+	
 }

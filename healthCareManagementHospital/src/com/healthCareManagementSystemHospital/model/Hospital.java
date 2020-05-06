@@ -18,7 +18,7 @@ public class Hospital {
 	try
 	{
 	Class.forName("com.mysql.jdbc.Driver");
-	connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/healthcaremanagment", "root", "");
+	connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/hospitalservice", "root", "");
 	}
 	catch (Exception e)
 	{e.printStackTrace();}
@@ -93,7 +93,7 @@ public class Hospital {
 	String date = rs.getString("date");
 	// Add into the html table
 	
-	output += "<tr><td><input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + hospitalID + "'>"
+	output += "<tr><td><input id='hidSheduleIDUpdate' name='hidSheduleIDUpdate' type='hidden' value='" + hospitalID + "'>"
 			    + hospitalCode + "</td>";
 	output += "<td>" + doctorName + "</td>";
 	output += "<td>" + roomNo + "</td>";

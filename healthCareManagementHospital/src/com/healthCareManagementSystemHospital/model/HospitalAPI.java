@@ -60,10 +60,10 @@ public class HospitalAPI extends HttpServlet {
 			Map paras = getParasMap(request);
 			String output = sheduleObj.updateDoctorShedule(paras.get("hidSheduleIDSave").toString(),
 			paras.get("hospitalCode").toString(),
-			paras.get("doctorName").toString(),
+			paras.get("doctorName").toString().replace("+"," "),
 			paras.get("roomNo").toString(),
-			paras.get("timeFrom").toString(),
-			paras.get("timeTo").toString(),
+			paras.get("timeFrom").toString().replace("%3A",":").replace("+"," "),
+			paras.get("timeTo").toString().replace("%3A",":").replace("+"," "),
 			paras.get("date").toString());
 			response.getWriter().write(output);
 			}
